@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power School — Login</title>
+    <link rel="stylesheet" href="common-AI.css">
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-brand">POWER <span>SCHOOL</span></div>
+            <p class="auth-subtitle">Enter your credentials to access your portal</p>
+
+            <div id="error-alert" class="alert-message alert-danger"></div>
+            <div id="success-alert" class="alert-message alert-success"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username" required autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" class="form-control" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="ROLE_ADMIN">Admin</option>
+                        <option value="ROLE_TEACHER">Teacher</option>
+                        <option value="ROLE_STUDENT">Student</option>
+                        <option value="ROLE_PARENT">Parent</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="login-btn" class="btn-primary">
+                    <span id="btn-text">Login to Dashboard</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="api-AI.js"></script>
+    <script src="auth-AI.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.init();
+
+            const loginForm = document.getElementById('login-form');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const roleSelect = document.getElementById('role');
+            const loginBtn = document.getElementById('login-btn');
+            const btnText = document.getElementById('btn-text');
+            const errorAlert = document.getElementById('error-alert');
+
+            // Check if redirected due to session expiry
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('session') === 'expired') {
+                errorAlert.textContent = 'Session expired. Please log in again.';
+                errorAlert.style.display = 'block';
+            }
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                errorAlert.style.display = 'none';
+                loginBtn.disabled = true;
+                btnText.textContent = 'Authenticating...';
+
+                const payload = {
+                    username: usernameInput.value.trim(),
+                    password: passwordInput.value,
+                    role: roleSelect.value
+                };
+
+                try {
+                    const data = await API.post('/auth/login', payload);
+                    Auth.setSession(data);
+                    Auth.redirectByRole(data.role || roleSelect.value);
+                } catch (error) {
+                    errorAlert.textContent = typeof error === 'string' ? error : (error.message || 'Invalid username, password, or role');
+                    errorAlert.style.display = 'block';
+                } finally {
+                    loginBtn.disabled = false;
+                    btnText.textContent = 'Login to Dashboard';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
