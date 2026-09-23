@@ -1,4 +1,4 @@
- package main.java.com.powerschool.security;
+ package com.powerschool.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

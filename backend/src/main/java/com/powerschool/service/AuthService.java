@@ -1,5 +1,5 @@
 // AuthService.java
-package main.java.com.powerschool.service;
+package com.powerschool.service;
 
 import com.powerschool.dto.LoginRequestDTO;
 import com.powerschool.entity.UserAccount;

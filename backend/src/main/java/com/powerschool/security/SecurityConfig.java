@@ -1,4 +1,4 @@
-package main.java.com.powerschool.security;
+package com.powerschool.security;
 
 import com.powerschool.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;

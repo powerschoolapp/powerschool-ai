@@ -1,4 +1,4 @@
-package main.java.com.powerschool.entity;
+package com.powerschool.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

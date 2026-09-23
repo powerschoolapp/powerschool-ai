@@ -1,5 +1,5 @@
 // AuthController.java
-package main.java.com.powerschool.controller;
+package com.powerschool.controller;
 
 import com.powerschool.dto.LoginRequestDTO;
 import com.powerschool.service.AuthService;

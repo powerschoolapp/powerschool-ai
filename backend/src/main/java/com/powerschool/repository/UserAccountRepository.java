@@ -1,4 +1,4 @@
-package main.java.com.powerschool.repository;
+package com.powerschool.repository;
 
 import com.powerschool.entity.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
