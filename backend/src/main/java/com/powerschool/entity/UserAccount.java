@@ -1,4 +1,5 @@
 package com.powerschool.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class UserAccount {
     public enum Role {
         ROLE_ADMIN,
         ROLE_TEACHER,
-        ROLE_STUDENT
+        ROLE_STUDENT,
+        ROLE_PARENT // Added missing ROLE_PARENT to match frontend form options
     }
 }

@@ -1,4 +1,3 @@
-// AuthController.java
 package com.powerschool.controller;
 
 import com.powerschool.dto.LoginRequestDTO;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "*") // Allows request from any frontend origin
 public class AuthController {
 
     @Autowired

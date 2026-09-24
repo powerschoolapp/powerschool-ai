@@ -1,0 +1,14 @@
+# Maven target folder (compiled binaries and configurations)
+target/
+backend/target/
+bin/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.class
+
+# OS system files
+.DS_Store
+Thumbs.db

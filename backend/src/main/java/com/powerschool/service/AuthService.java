@@ -1,4 +1,3 @@
-// AuthService.java
 package com.powerschool.service;
 
 import com.powerschool.dto.LoginRequestDTO;
@@ -31,11 +30,18 @@ public class AuthService {
                 )
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken(authentication);
-
         UserAccount user = userAccountRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("User profile not found"));
+
+        // Validate selected role against actual user role
+        if (loginRequest.getRole() != null && !loginRequest.getRole().isEmpty()) {
+            if (!user.getRole().name().equalsIgnoreCase(loginRequest.getRole())) {
+                throw new BadCredentialsException("User role mismatch for selected portal.");
+            }
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenProvider.generateToken(authentication);
 
         return new LoginRequestDTO.Response(
                 jwt,

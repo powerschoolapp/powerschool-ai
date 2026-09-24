@@ -6,13 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class LoginRequestDTO {
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+
+    @Getter 
+    @Setter 
+    @NoArgsConstructor 
+    @AllArgsConstructor
     public static class Request {
         private String username;
         private String password;
+        private String role; // Added to match frontend login submission
     }
 
-    @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+    @Getter 
+    @Setter 
+    @NoArgsConstructor 
+    @AllArgsConstructor
     public static class Response {
         private String token;
         private String type = "Bearer";
