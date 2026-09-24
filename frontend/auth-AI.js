@@ -25,19 +25,20 @@ const Auth = {
     logout() {
         localStorage.removeItem('ps_token');
         localStorage.removeItem('ps_user');
-        window.location.href = '/login-AI.html';
+        // Use relative path so GitHub Pages subfolders work correctly
+        window.location.href = './index.html';
     },
 
     redirectByRole(role) {
         switch (role) {
             case 'ROLE_ADMIN':
-                window.location.href = '/admin/dashboard-AI.html';
+                window.location.href = './admin-dashboard.html';
                 break;
             case 'ROLE_TEACHER':
-                window.location.href = '/teacher/dashboard-AI.html';
+                window.location.href = './teacher/dashboard-AI.html';
                 break;
             case 'ROLE_STUDENT':
-                window.location.href = '/student/dashboard-AI.html';
+                window.location.href = './student/dashboard-AI.html';
                 break;
             default:
                 this.logout();
@@ -49,26 +50,33 @@ const Auth = {
         const user = this.getUser();
         const token = this.getToken();
 
-        if (currentPath.includes('login-AI.html') || currentPath === '/') {
+        // Allow access to login page without forcing a redirect loop
+        const isLoginPage = currentPath.endsWith('index.html') || 
+                            currentPath.endsWith('/powerschool-ai/') || 
+                            currentPath === '/' || 
+                            currentPath.endsWith('/powerschool-ai');
+
+        if (isLoginPage) {
             if (token && user) {
                 this.redirectByRole(user.role);
             }
             return;
         }
 
+        // If not logged in and trying to access protected pages
         if (!token || !user) {
-            window.location.href = '/login-AI.html';
+            window.location.href = './index.html';
             return;
         }
 
         // Role-based directory guard
-        if (currentPath.includes('/admin/') && user.role !== 'ROLE_ADMIN') {
+        if (currentPath.includes('/admin') && user.role !== 'ROLE_ADMIN') {
             alert('Access Denied: Admin privileges required.');
             this.redirectByRole(user.role);
-        } else if (currentPath.includes('/teacher/') && user.role !== 'ROLE_TEACHER' && user.role !== 'ROLE_ADMIN') {
+        } else if (currentPath.includes('/teacher') && user.role !== 'ROLE_TEACHER' && user.role !== 'ROLE_ADMIN') {
             alert('Access Denied: Teacher privileges required.');
             this.redirectByRole(user.role);
-        } else if (currentPath.includes('/student/') && user.role !== 'ROLE_STUDENT' && user.role !== 'ROLE_ADMIN') {
+        } else if (currentPath.includes('/student') && user.role !== 'ROLE_STUDENT' && user.role !== 'ROLE_ADMIN') {
             alert('Access Denied: Student privileges required.');
             this.redirectByRole(user.role);
         }

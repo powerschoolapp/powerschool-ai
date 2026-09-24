@@ -23,7 +23,8 @@ const API = {
                 if (!endpoint.includes('/auth/login')) {
                     localStorage.removeItem('ps_token');
                     localStorage.removeItem('ps_user');
-                    window.location.href = '/login-AI.html?session=expired';
+                    // Changed to relative index.html path
+                    window.location.href = './index.html?session=expired';
                     return;
                 }
             }
