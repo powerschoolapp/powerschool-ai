@@ -10,10 +10,18 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
+    background: linear-gradient(135deg, #0d1b2a, #1b263b, #cad053);
 }
 
-.login-container {
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.auth-card {
     background: #ffffff;
     width: 100%;
     max-width: 400px;
@@ -22,21 +30,23 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.login-header {
+.auth-brand {
     text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-header h2 {
     color: #1b263b;
     font-size: 28px;
     font-weight: 700;
 }
 
-.login-header p {
+.auth-brand span {
+    color: #f1580bcf;
+}
+
+.auth-subtitle {
+    text-align: center;
     color: #778da9;
     font-size: 14px;
     margin-top: 5px;
+    margin-bottom: 25px;
 }
 
 .form-group {
@@ -51,21 +61,23 @@ body {
     font-weight: 600;
 }
 
-.form-group input {
+.form-control {
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     font-size: 14px;
+    background-color: #ffffff;
+    color: #1b263b;
     transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
+.form-control:focus {
     outline: none;
     border-color: #415a77;
 }
 
-.btn-login {
+.btn-primary {
     width: 100%;
     padding: 12px;
     background-color: #1b263b;
@@ -76,19 +88,45 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
-.btn-login:hover {
+.btn-primary:hover {
     background-color: #0d1b2a;
 }
 
-.error-message {
-    background-color: #ffe6e6;
-    color: #d9534f;
-    padding: 10px;
+.btn-primary:disabled {
+    background-color: #778da9;
+    cursor: not-allowed;
+}
+
+.alert-message {
+    padding: 10px 15px;
     border-radius: 6px;
     font-size: 13px;
     margin-bottom: 20px;
     display: none;
     text-align: center;
+}
+
+.alert-danger {
+    background-color: #ffe6e6;
+    color: #d9534f;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.auth-logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-logo {
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
 }
